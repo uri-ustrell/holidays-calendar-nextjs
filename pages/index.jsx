@@ -7,12 +7,12 @@ import { Calendar } from '../components/calendar'
 
 // single country yearly holidays
 const getHolidays = async (year, country) => {
-  const res = await fetch(`https://date.nager.at/api/v2/PublicHolidays/${year}/${country}`)
+  const res = await fetch(`/api/PublicHolidays/${year}/${country}`)
   return res.json()
 }
 // available countries
 const getCountries = async () => {
-  const res = await fetch('https://date.nager.at/api/v2/AvailableCountries')
+  const res = await fetch('/api/AvailableCountries')
   return res.json()
 }
 
