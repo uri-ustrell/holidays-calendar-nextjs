@@ -18,11 +18,11 @@ const getCountries = async () => {
 
 const Index = () => {
   const year = 2020
-  const country = 'CO'
+  const country = 'ES'
   const [holidays, setHolidays] = React.useState([])
 
   React.useEffect(() => {
-    getHolidays(year, country).then(setHolidays)
+    getHolidays(year, country).then(res => setHolidays(res))
   }, [])
 
   return <Calendar year={year} holidays={holidays} />
