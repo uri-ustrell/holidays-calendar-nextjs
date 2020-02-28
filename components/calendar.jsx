@@ -11,7 +11,7 @@ const formatDate = date => dayjs(date).format('DD')
 
 const getMonthDaysList = (year, month) => {
   const monthDays = getMonthDays(year, month)
-  return Array.from({length: monthDays}, (_, day) => getDate(year, month-1, day+1))
+  return Array.from({ length: monthDays }, (_, day) => getDate(year, month - 1, day + 1))
 }
 
 const Title = styled.div`
@@ -25,7 +25,7 @@ const CalendarGrid = styled.div`
   grid-template-columns: repeat(7, 1fr);
 `
 
-export const Calendar = ({year, holidays}) => {
+export const Calendar = ({ year, holidays }) => {
   const month = 2
   const monthDaysList = getMonthDaysList(year, month)
   return (

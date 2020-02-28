@@ -1,6 +1,6 @@
 import React from 'react'
 import fetch from 'isomorphic-unfetch'
-import {Calendar} from '../components/calendar'
+import { Calendar } from '../components/calendar'
 
 
 /*** Nager.Date Public Holiday API (https://date.nager.at/Api) ***/
@@ -25,7 +25,7 @@ const Index = () => {
     getHolidays(year, country).then(setHolidays)
   }, [])
 
-  return <Calendar year={year} holidays={holidays}/>
+  return <Calendar year={year} holidays={holidays} />
 }
 
 export default Index
