@@ -1,22 +1,13 @@
 import dayjs from "dayjs";
 
-const calendarMap = Array.from({ length: 6 }).map(week => [
-	{ Mo: "" },
-	{ Tu: "" },
-	{ We: "" },
-	{ Th: "" },
-	{ Fr: "" },
-	{ Sa: "" },
-	{ Su: "" }
-]);
 export const getFirstDayPosition = day => dayjs(day.date).get("d");
 
-export const getMonthView = monthDays => {
+export const getMonthViewMap = monthDays => {
 	const monthDaysKeys = Object.keys(monthDays);
 	const firstDay = monthDaysKeys[0];
 	const lastDay = monthDaysKeys[monthDaysKeys.length - 1];
 
-	const monthView = Array.from({ length: 7 }).reduce((monthMap, _, i) => {
+	const monthView = Array.from({ length: 10 }).reduce((monthMap, _, i) => {
 		const currentMonthView =
 			Object.keys(monthMap).length === 0 ? { ...monthDays } : monthMap;
 		const oneMoreDay = dayjs(lastDay).add(i + 1, "day");
@@ -34,16 +25,18 @@ export const getMonthView = monthDays => {
 	return monthView;
 };
 
-export const getMonthViewOrderedList = (monthView, firstDay) =>
-	Object.keys(monthView).filter(
-		(_, i) => i + 1 > 6 - firstDay && i + 6 - firstDay < 41
-	);
+export const getMonthViewOrderedList = (monthView, position) => {
+	position = position ? position : 7;
+	return Object.keys(monthView)
+		.filter((_, i) => i + 1 > 7 - position)
+		.filter((_, i) => i < 42);
+};
 
 const getMonthDays = (year, month) => new Date(year, month, 0).getDate();
 
 const getDate = (year, month, day) => dayjs(new Date(year, month, day));
 
-const formatDate = date => dayjs(date).format("D");
+export const formatDate = date => dayjs(date).format("D");
 
 const formatMonth = month =>
 	dayjs()

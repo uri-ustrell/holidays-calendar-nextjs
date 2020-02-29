@@ -1,16 +1,16 @@
 import {
-	getMonthView,
+	getMonthViewMap,
 	getMonthDaysMap,
 	getFirstDayPosition
 } from "../utils/calendarUtils";
 
 describe("utils", () => {
-	describe("getMonthView", () => {
+	describe("getMonthViewMap", () => {
 		it("should return object with 7 days bejore and after", () => {
 			/*fix this shitty double test*/
 			const monthDays = getMonthDaysMap(2020, 6);
 			//const initialList = Array.from({ length: 30 }, (_, i) => i);
-			const monthView = getMonthView(monthDays);
+			const monthView = getMonthViewMap(monthDays);
 			const newLength = Object.keys(monthDays).length + 7 * 2;
 
 			expect(Object.keys(monthView).length).toEqual(newLength);

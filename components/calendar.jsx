@@ -35,9 +35,20 @@ const getMonthDaysList = (year, month) => {
 
 export const Calendar = ({ year, holidays }) => {
 	const [month, setMonth] = useState(getMonthNumber(getCurrentDate()));
+
+	const monthDays = calendarUtils.getMonthDaysMap(year, month);
+	const firstDayPosition = calendarUtils.getFirstDayPosition(
+		monthDays[Object.keys(monthDays)[0]]
+	);
+	const monthMap = calendarUtils.getMonthViewMap(monthDays);
+	console.log(monthMap);
+	const monthDaysList = calendarUtils.getMonthViewOrderedList(
+		monthMap,
+		firstDayPosition
+	);
+
 	const handleChangeMonthClick = steps =>
 		setMonth(prevMonth => prevMonth + steps);
-	const monthDaysList = getMonthDaysList(year, month);
 
 	return (
 		<>
@@ -48,7 +59,7 @@ export const Calendar = ({ year, holidays }) => {
 			/>
 			<CalendarGrid>
 				{monthDaysList.map(day => (
-					<div key={day}>{formatDate(day)}</div>
+					<div key={day}>{calendarUtils.formatDate(day)}</div>
 				))}
 			</CalendarGrid>
 		</>
