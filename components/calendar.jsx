@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import dayjs from "dayjs";
 import styled from "styled-components";
 import CalendarHeader from "./CalendarHeader";
+import * as calendarUtils from "../utils/calendarUtils";
 
 const CalendarGrid = styled.div`
 	display: grid;

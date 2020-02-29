@@ -1,19 +1,29 @@
-import { getMonthView, getMonthView2 } from "../utils/calendarUtils";
+import {
+	getMonthView,
+	getMonthDaysMap,
+	getFirstDayPosition
+} from "../utils/calendarUtils";
 
 describe("utils", () => {
 	describe("getMonthView", () => {
-		it("should return array of 42 items", () => {
-			const monthView = getMonthView([1, 2, 3, 4]);
-			expect(monthView.length).toEqual(6);
+		it("should return object with 7 days bejore and after", () => {
+			/*fix this shitty double test*/
+			const monthDays = getMonthDaysMap(2020, 6);
+			//const initialList = Array.from({ length: 30 }, (_, i) => i);
+			const monthView = getMonthView(monthDays);
+			const newLength = Object.keys(monthDays).length + 7 * 2;
+
+			expect(Object.keys(monthView).length).toEqual(newLength);
 		});
 	});
 
-	describe("getMonthView2", () => {
-		it("should return a month view map", () => {
-			const monthView = getMonthView2(
-				new Date("2020-01-04T23:00:00.000Z")
-			);
-			expect(monthView).toEqual(true);
+	describe("getFirstDayPosition", () => {
+		it("should return position of the first monday", () => {
+			const day = getFirstDayPosition({
+				date: "2020-06-15T00:00:00+02:00"
+			});
+
+			expect(day).toEqual(1);
 		});
 	});
 });
