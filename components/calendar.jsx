@@ -32,8 +32,6 @@ const getMonthDaysList = (year, month) => {
 	);
 };
 
-const addMonthListRests = list => Array.from({ lenght: 6 * 7 });
-
 export const Calendar = ({ year, holidays }) => {
 	const [month, setMonth] = useState(getMonthNumber(getCurrentDate()));
 	const handleChangeMonthClick = steps =>
