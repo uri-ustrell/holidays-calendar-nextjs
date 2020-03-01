@@ -4,44 +4,57 @@ import styled from "styled-components";
 import CalendarHeader from "./CalendarHeader";
 import * as calendarUtils from "../utils/calendarUtils";
 
+const CalendarWrapper = styled.div`
+	margin: auto;
+	padding: 10px;
+	width: 500px;
+	border-radius: 5px;
+	overflow: hidden;
+	box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.29);
+	font-family: sans-serif;
+	color: #555;
+`;
+
 const CalendarGrid = styled.div`
 	display: grid;
 	grid-row-gap: 10px;
-	width: 600px;
 	grid-template-columns: repeat(7, 1fr);
+`;
+
+const CalendarDay = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	align-self: center;
+	border-radius: 100%;
+	width: 40px;
+	height: 40px;
+	margin: auto;
+	cursor: pointer;
+	${({ active }) =>
+		active &&
+		`
+      font-weight: bold;
+      transition: 0.3s;
+      &:hover {
+        background: tomato;
+        color: white
+      }
+    `}
 `;
 
 const getCurrentDate = () => dayjs();
 
-const getMonthDays = (year, month) => new Date(year, month, 0).getDate();
-
-const getDate = (year, month, day) => new Date(year, month, day);
-
-const formatDate = date => dayjs(date).format("D");
-
-const formatMonth = month =>
-	dayjs()
-		.month(month - 1)
-		.format("MMMM");
-
-const getMonthNumber = date => parseInt(dayjs(date).format("M"), 10);
-
-const getMonthDaysList = (year, month) => {
-	const monthDays = getMonthDays(year, month);
-	return Array.from({ length: monthDays }, (_, day) =>
-		getDate(year, month - 1, day + 1)
-	);
-};
-
 export const Calendar = ({ year, holidays }) => {
-	const [month, setMonth] = useState(getMonthNumber(getCurrentDate()));
+	const [month, setMonth] = useState(
+		calendarUtils.getMonthNumber(getCurrentDate())
+	);
 
 	const monthDays = calendarUtils.getMonthDaysMap(year, month);
 	const firstDayPosition = calendarUtils.getFirstDayPosition(
 		monthDays[Object.keys(monthDays)[0]]
 	);
 	const monthMap = calendarUtils.getMonthViewMap(monthDays);
-	console.log(monthMap);
 	const monthDaysList = calendarUtils.getMonthViewOrderedList(
 		monthMap,
 		firstDayPosition
@@ -51,17 +64,19 @@ export const Calendar = ({ year, holidays }) => {
 		setMonth(prevMonth => prevMonth + steps);
 
 	return (
-		<>
+		<CalendarWrapper>
 			<CalendarHeader
 				year={year}
-				month={formatMonth(month)}
+				month={calendarUtils.formatMonth(month)}
 				handleChangeMonthClick={handleChangeMonthClick}
 			/>
 			<CalendarGrid>
 				{monthDaysList.map(day => (
-					<div key={day}>{calendarUtils.formatDate(day)}</div>
+					<CalendarDay key={day} active={monthMap[day].active}>
+						{calendarUtils.formatDate(day)}
+					</CalendarDay>
 				))}
 			</CalendarGrid>
-		</>
+		</CalendarWrapper>
 	);
 };

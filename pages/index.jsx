@@ -24,7 +24,13 @@ const Index = () => {
 		getHolidays(year, country).then(res => setHolidays(res));
 	}, []);
 
-	return <Calendar year={year} holidays={holidays} />;
+	return (
+		<Calendar
+			className="holidaysCalendar"
+			year={year}
+			holidays={holidays}
+		/>
+	);
 };
 
 export default Index;

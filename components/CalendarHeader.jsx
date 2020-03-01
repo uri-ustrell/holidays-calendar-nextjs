@@ -4,23 +4,27 @@ import styled from "styled-components";
 const Title = styled.div`
 	margin-bottom: 1rem;
 	margin: auto;
+	font-weight: bold;
+	font-size: 2em;
 `;
 
 const Pointer = styled.div`
-width: 10px;
-height: 10px;
-margin: auto;
-border-${props => (props.left && "right") || "left"}: black 10px solid;
-border-bottom: transparent 5px solid;
-border-top: transparent 5px solid;
-box-sizing: border-box;
-}
+	width: 10px;
+	height: 10px;
+	margin: auto;
+	border-${props => (props.left && "right") || "left"}: white 10px solid;
+	border-bottom: transparent 5px solid;
+	border-top: transparent 5px solid;
+	box-sizing: border-box;
+	cursor: pointer;
 `;
 
 const HeaderWrapper = styled.div`
 	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
-	width: 600px;
+	grid-template-columns: 1fr 2fr 1fr;
+	height: 70px;
+	background-color: tomato;
+	color: white;
 `;
 
 const CalendarHeader = ({ year, month, handleChangeMonthClick }) => {
