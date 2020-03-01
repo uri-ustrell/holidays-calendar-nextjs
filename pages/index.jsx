@@ -1,5 +1,6 @@
 import React from "react";
 import fetch from "isomorphic-unfetch";
+import dayjs from "dayjs";
 import { Calendar } from "../components/calendar";
 
 /*** Nager.Date Public Holiday API (https://date.nager.at/Api) ***/
@@ -15,9 +16,12 @@ const getCountries = async () => {
 	return res.json();
 };
 
+const getCurrentDate = () => dayjs();
+
 const Index = () => {
 	const year = 2020;
 	const country = "ES";
+	const today = getCurrentDate();
 	const [holidays, setHolidays] = React.useState([]);
 
 	React.useEffect(() => {
@@ -27,7 +31,7 @@ const Index = () => {
 	return (
 		<Calendar
 			className="holidaysCalendar"
-			year={year}
+			date={today}
 			holidays={holidays}
 		/>
 	);

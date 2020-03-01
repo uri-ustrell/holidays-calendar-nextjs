@@ -5,7 +5,7 @@ const Title = styled.div`
 	margin-bottom: 1rem;
 	margin: auto;
 	font-weight: bold;
-	font-size: 2em;
+	font-size: 1.5em;
 `;
 
 const Pointer = styled.div`

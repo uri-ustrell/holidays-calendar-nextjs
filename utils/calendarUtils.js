@@ -1,6 +1,12 @@
 import dayjs from "dayjs";
 
-const getMonthDays = (year, month) => new Date(year, month, 0).getDate();
+export const getMonthDays = date =>
+	parseInt(
+		dayjs(date)
+			.endOf("month")
+			.format("D"),
+		10
+	);
 
 const getDate = (year, month, day) => dayjs(new Date(year, month, day));
 
@@ -10,15 +16,17 @@ const dateToMapDay = (day, props) => ({
 
 export const getFirstDayPosition = day => dayjs(day.date).get("d");
 
-export const getMonthDaysMap = (year, month) => {
-	const monthDays = getMonthDays(year, month);
-	return Array.from({ length: monthDays + 1 }).reduce((monthDays, _, day) => {
-		const date = getDate(year, month - 1, day);
-		return {
-			...monthDays,
-			...dateToMapDay(date, { active: true })
-		};
-	});
+export const getMonthDaysMap = date => {
+	const amountMonthDays = getMonthDays(date);
+	return Array.from({ length: amountMonthDays }).reduce(
+		(monthDays, _, day) => {
+			return {
+				...monthDays,
+				...dateToMapDay(date.set("date", day + 1), { active: true })
+			};
+		},
+		{}
+	);
 };
 
 export const getMonthViewMap = monthDays => {
@@ -51,7 +59,6 @@ export const getMonthNumber = date => parseInt(dayjs(date).format("M"), 10);
 
 export const formatDate = date => dayjs(date).format("D");
 
-export const formatMonth = month =>
-	dayjs()
-		.month(month - 1)
-		.format("MMMM");
+export const formatMonthToString = date => dayjs(date).format("MMMM");
+
+export const formatYear = date => dayjs(date).format("YYYY");

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import dayjs from "dayjs";
 import styled from "styled-components";
 import CalendarHeader from "./CalendarHeader";
 import * as calendarUtils from "../utils/calendarUtils";
@@ -43,14 +42,10 @@ const CalendarDay = styled.div`
     `}
 `;
 
-const getCurrentDate = () => dayjs();
+export const Calendar = ({ date, holidays }) => {
+	const [month, setMonth] = useState(date);
 
-export const Calendar = ({ year, holidays }) => {
-	const [month, setMonth] = useState(
-		calendarUtils.getMonthNumber(getCurrentDate())
-	);
-
-	const monthDays = calendarUtils.getMonthDaysMap(year, month);
+	const monthDays = calendarUtils.getMonthDaysMap(month);
 	const firstDayPosition = calendarUtils.getFirstDayPosition(
 		monthDays[Object.keys(monthDays)[0]]
 	);
@@ -61,13 +56,13 @@ export const Calendar = ({ year, holidays }) => {
 	);
 
 	const handleChangeMonthClick = steps =>
-		setMonth(prevMonth => prevMonth + steps);
+		setMonth(prevMonth => prevMonth.add(steps, "month"));
 
 	return (
 		<CalendarWrapper>
 			<CalendarHeader
-				year={year}
-				month={calendarUtils.formatMonth(month)}
+				year={calendarUtils.formatYear(month)}
+				month={calendarUtils.formatMonthToString(month)}
 				handleChangeMonthClick={handleChangeMonthClick}
 			/>
 			<CalendarGrid>
