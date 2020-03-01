@@ -21,8 +21,8 @@ const Pointer = styled.div`
 	border-top: #555 10px solid;
 	border-left: transparent 5px solid;
 	border-right: transparent 5px solid;
-	box-sizing: border-box;s
-	cursor: pointer;
+	box-sizing: border-box;
+	scursor: pointer;
 `;
 
 const Name = styled.h2`
@@ -37,17 +37,14 @@ const LocalName = styled.span`
 	font-weight: bold;
 `;
 
-const DayInfo = ({ info, handleCloseInfo }) => {
-	console.log("info into", info);
-	return (
-		<InfoWrapper bottom={200}>
-			<Pointer onClick={handleCloseInfo} />
-			<Name>{info.name}</Name>
-			<Date>{formatCompleteDate(info.date)}</Date>
-			<span>Local name: </span>
-			<LocalName>{info.localName}</LocalName>
-		</InfoWrapper>
-	);
-};
+const DayInfo = ({ info, handleCloseInfo }) => (
+	<InfoWrapper bottom={200}>
+		<Pointer onClick={handleCloseInfo} />
+		<Name>{info.name}</Name>
+		<Date>{formatCompleteDate(info.date)}</Date>
+		<span>Local name: </span>
+		<LocalName>{info.localName}</LocalName>
+	</InfoWrapper>
+);
 
 export default DayInfo;
