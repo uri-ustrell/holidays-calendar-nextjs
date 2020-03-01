@@ -10,7 +10,6 @@ const CalendarWrapper = styled.div`
 	overflow: hidden;
 	box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.29);
 	font-family: sans-serif;
-	color: #555;
 `;
 
 const CalendarGrid = styled.div`
@@ -30,34 +29,55 @@ const CalendarDay = styled.div`
 	height: 40px;
 	margin: auto;
 	cursor: pointer;
-	${({ active }) =>
-		active &&
-		`
+	color: #999;
+
+	${({ holiday, active }) => {
+		let style = "";
+		if (active) {
+			style += `
       font-weight: bold;
       transition: 0.3s;
+      color: #555;
+      
       &:hover {
-        background: tomato;
-        color: white
+        background: lightgrey;
+        color: white;
       }
-    `}
+    `;
+		}
+
+		if (holiday) {
+			style += `color: tomato;`;
+		}
+
+		if (holiday && active) {
+			style += `&:hover {
+        background: tomato;
+    }`;
+		}
+		return style;
+	}}
 `;
 
-export const Calendar = ({ date, holidays }) => {
+export const Calendar = ({ date, holidays = [] }) => {
 	const [month, setMonth] = useState(date);
 
 	const monthDays = calendarUtils.getMonthDaysMap(month);
 	const firstDayPosition = calendarUtils.getFirstDayPosition(
 		monthDays[Object.keys(monthDays)[0]]
 	);
-	const monthMap = calendarUtils.getMonthViewMap(monthDays);
+	const monthMapWithoutHolidays = calendarUtils.getMonthViewMap(monthDays);
+	const monthMap = calendarUtils.getMonthViewWithHolidays(
+		monthMapWithoutHolidays,
+		holidays
+	);
 	const monthDaysList = calendarUtils.getMonthViewOrderedList(
 		monthMap,
 		firstDayPosition
 	);
-
+	console.log(monthMap);
 	const handleChangeMonthClick = steps =>
 		setMonth(prevMonth => prevMonth.add(steps, "month"));
-
 	return (
 		<CalendarWrapper>
 			<CalendarHeader
@@ -67,7 +87,11 @@ export const Calendar = ({ date, holidays }) => {
 			/>
 			<CalendarGrid>
 				{monthDaysList.map(day => (
-					<CalendarDay key={day} active={monthMap[day].active}>
+					<CalendarDay
+						key={day}
+						holiday={monthMap[day].holiday}
+						active={monthMap[day].active}
+					>
 						{calendarUtils.formatDate(day)}
 					</CalendarDay>
 				))}
