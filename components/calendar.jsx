@@ -6,8 +6,7 @@ import * as calendarUtils from "../utils/calendarUtils";
 
 const CalendarWrapper = styled.div`
 	margin: auto;
-	padding: 10px;
-	width: 500px;
+	width: 400px;
 	border-radius: 5px;
 	overflow: hidden;
 	box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.29);
@@ -19,6 +18,7 @@ const CalendarGrid = styled.div`
 	display: grid;
 	grid-row-gap: 10px;
 	grid-template-columns: repeat(7, 1fr);
+	padding: 10px;
 `;
 
 const CalendarDay = styled.div`
