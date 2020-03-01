@@ -11,7 +11,12 @@ export const getMonthDays = date =>
 const getDate = (year, month, day) => dayjs(new Date(year, month, day));
 
 const dateToMapDay = (day, props) => ({
-	[day.format("YYYYMMDD")]: { date: day.format(), holiday: false, ...props }
+	[day.format("YYYYMMDD")]: {
+		date: day.format(),
+		holiday: false,
+		info: {},
+		...props
+	}
 });
 
 export const getFirstDayPosition = day => dayjs(day.date).get("d");
@@ -58,7 +63,9 @@ export const getMonthViewOrderedList = (monthView, position) => {
 export const getMonthViewWithHolidays = (monthView, holidays) =>
 	holidays.reduce((acc, curr) => {
 		const day = Object.keys(dateToMapDay(dayjs(curr.date), {}))[0];
-		if (acc.hasOwnProperty(day)) acc[day].holiday = true;
+		if (acc.hasOwnProperty(day)) {
+			(acc[day].holiday = true), (acc[day].info = curr);
+		}
 
 		return { ...acc };
 	}, monthView);
