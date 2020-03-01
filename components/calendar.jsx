@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import CalendarHeader from "./CalendarHeader";
+import DayInfo from "./DayInfo";
 import * as calendarUtils from "../utils/calendarUtils";
 
 const CalendarWrapper = styled.div`
@@ -10,6 +11,7 @@ const CalendarWrapper = styled.div`
 	overflow: hidden;
 	box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.29);
 	font-family: sans-serif;
+	max-height: 380px;
 `;
 
 const CalendarGrid = styled.div`
@@ -47,12 +49,12 @@ const CalendarDay = styled.div`
 		}
 
 		if (holiday) {
-			style += `color: tomato;`;
+			style += `color: #ff6b6b;`;
 		}
 
 		if (holiday && active) {
 			style += `&:hover {
-        background: tomato;
+        background: #ff6b6b;
     }`;
 		}
 		return style;
@@ -61,6 +63,7 @@ const CalendarDay = styled.div`
 
 export const Calendar = ({ date, holidays = [] }) => {
 	const [month, setMonth] = useState(date);
+	const [info, setInfo] = useState({});
 
 	const monthDays = calendarUtils.getMonthDaysMap(month);
 	const firstDayPosition = calendarUtils.getFirstDayPosition(
@@ -75,9 +78,15 @@ export const Calendar = ({ date, holidays = [] }) => {
 		monthMap,
 		firstDayPosition
 	);
-	console.log(monthMap);
+
 	const handleChangeMonthClick = steps =>
 		setMonth(prevMonth => prevMonth.add(steps, "month"));
+
+	const displayInfo = day => {
+		if (day.holiday) setInfo(day);
+		else setInfo({});
+	};
+
 	return (
 		<CalendarWrapper>
 			<CalendarHeader
@@ -91,11 +100,18 @@ export const Calendar = ({ date, holidays = [] }) => {
 						key={day}
 						holiday={monthMap[day].holiday}
 						active={monthMap[day].active}
+						onClick={() => displayInfo(monthMap[day])}
 					>
-						{calendarUtils.formatDate(day)}
+						{calendarUtils.formatDay(day)}
 					</CalendarDay>
 				))}
 			</CalendarGrid>
+			{info.holiday && (
+				<DayInfo
+					info={info.info}
+					handleCloseInfo={() => displayInfo({})}
+				/>
+			)}
 		</CalendarWrapper>
 	);
 };

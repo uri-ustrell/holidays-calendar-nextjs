@@ -72,8 +72,11 @@ export const getMonthViewWithHolidays = (monthView, holidays) =>
 
 export const getMonthNumber = date => parseInt(dayjs(date).format("M"), 10);
 
-export const formatDate = date => dayjs(date).format("D");
+export const formatDay = date => dayjs(date).format("D");
 
 export const formatMonthToString = date => dayjs(date).format("MMMM");
 
 export const formatYear = date => dayjs(date).format("YYYY");
+
+export const formatCompleteDate = date =>
+	dayjs(date, "YYYY-MM-DD").format("DD MMMM, dddd");

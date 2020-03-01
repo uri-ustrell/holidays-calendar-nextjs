@@ -23,7 +23,7 @@ const HeaderWrapper = styled.div`
 	display: grid;
 	grid-template-columns: 1fr 2fr 1fr;
 	height: 70px;
-	background-color: tomato;
+	background-color: #ff6b6b;
 	color: white;
 `;
 
