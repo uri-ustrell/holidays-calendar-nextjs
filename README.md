@@ -40,5 +40,7 @@ I did the same with reducers. Which in this case are pure functions, but one exc
 5. 
 Proxy reverse. My browser was giving me some problems with CORS policy when fetching from https://date.nager.at/ API. So rather than mapping responses with browser plugins I prefered to make it easy from every client. This means I added a custom server with a proxy for DEVELOMPENT MODE.
 
+Now it's probably breaking the calls from production build. As long as this is a technical test, I think it's not an inconvenient.
+
 6. 
 Tests are incomplete, I know, I admit, I appologise. They are testimonial to show the way I do it. Theres an important lack of tests of view components. Again if you want to check how do I do it with Enzyme and React-testing-library, just check the above linked repositories.
