@@ -19,4 +19,3 @@ But if you'd like to see how I actually implement redux with react:
 
 -   https://github.com/uri-ustrell/paint-react-redux
 -   https://github.com/cyanlove/cyan-books-front
--	https://github.com/uri-ustrell/app-react-redux/
