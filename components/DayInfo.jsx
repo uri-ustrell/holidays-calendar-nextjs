@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { formatCompleteDate } from "../utils/calendarUtils";
+import { formatFormalFromShort } from "../core/actions/CalendarActions";
 
 const InfoWrapper = styled.div`
 	height: 200px;
@@ -41,7 +41,7 @@ const DayInfo = ({ info, handleCloseInfo }) => (
 	<InfoWrapper bottom={200}>
 		<Pointer onClick={handleCloseInfo} />
 		<Name>{info.name}</Name>
-		<Date>{formatCompleteDate(info.date)}</Date>
+		<Date>{formatFormalFromShort(info.date)}</Date>
 		<span>Local name: </span>
 		<LocalName>{info.localName}</LocalName>
 	</InfoWrapper>

@@ -93,5 +93,5 @@ export const formatDateMMMM = date => dayjs(date).format("MMMM");
 
 export const formatDateYYYY = date => dayjs(date).format("YYYY");
 
-export const formatCompleteDate = date =>
+export const formatFormalDateFromShort = date =>
 	dayjs(date, "YYYY-MM-DD").format("DD MMMM, dddd");

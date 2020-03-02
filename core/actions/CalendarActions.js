@@ -12,7 +12,8 @@ import {
 	formatDateYYYY,
 	formatDateMMMM,
 	formatDateD,
-	getCurrentDate
+	getCurrentDate,
+	formatFormalDateFromShort
 } from "../../utils/calendarUtils";
 import * as apiHolidays from "../../utils/apiHolidays";
 
@@ -35,6 +36,7 @@ export const formatYYYY = date => formatDateYYYY(date);
 export const formatMMMM = date => formatDateMMMM(date);
 export const formatD = date => formatDateD(date);
 export const getToday = () => getCurrentDate();
+export const formatFormalFromShort = date => formatFormalDateFromShort(date);
 
 export const getHolidaysAsync = (year, country) =>
 	apiHolidays.getHolidays(year, country);
