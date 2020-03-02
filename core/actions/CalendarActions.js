@@ -11,7 +11,8 @@ import {
 	getMonthDays,
 	formatDateYYYY,
 	formatDateMMMM,
-	formatDateD
+	formatDateD,
+	getCurrentDate
 } from "../../utils/calendarUtils";
 
 export const getMonthMapAndList = (date, holidays) => {
@@ -32,3 +33,4 @@ export const getMonthMapAndList = (date, holidays) => {
 export const formatYYYY = date => formatDateYYYY(date);
 export const formatMMMM = date => formatDateMMMM(date);
 export const formatD = date => formatDateD(date);
+export const getToday = () => getCurrentDate();

@@ -1,14 +1,12 @@
 import React from "react";
-import dayjs from "dayjs";
 import { Calendar } from "../components/calendar";
 import CountrySelector from "../components/CountrySelector";
 import * as apiHolidays from "../utils/apiHolidays";
-
-const getCurrentDate = () => dayjs();
+import { getToday } from "../core/actions/CalendarActions";
 
 const Index = () => {
 	const year = 2020;
-	const today = getCurrentDate();
+	const today = getToday();
 	const [holidays, setHolidays] = React.useState([]);
 	const [countries, setCountries] = React.useState([]);
 	const [country, setCountry] = React.useState("ES");

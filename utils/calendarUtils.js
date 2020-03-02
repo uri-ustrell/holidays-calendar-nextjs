@@ -13,6 +13,8 @@ export const getMonthDays = date =>
 
 const getDate = (year, month, day) => dayjs(new Date(year, month, day));
 
+export const getCurrentDate = () => dayjs();
+
 export const dateToMapDay = (day, props) => ({
 	[day.format("YYYYMMDD")]: {
 		date: day.format(),
