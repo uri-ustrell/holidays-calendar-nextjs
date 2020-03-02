@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
 
-export const compose = (...functions) => args => functions.reduce((arg, fn) => fn(arg), args);
+export const compose = (...functions) => args =>
+	functions.reduce((arg, fn) => fn(arg), args);
 
 export const getMonthDays = date =>
 	parseInt(
@@ -12,7 +13,7 @@ export const getMonthDays = date =>
 
 const getDate = (year, month, day) => dayjs(new Date(year, month, day));
 
-const dateToMapDay = (day, props) => ({
+export const dateToMapDay = (day, props) => ({
 	[day.format("YYYYMMDD")]: {
 		date: day.format(),
 		holiday: false,
@@ -21,7 +22,10 @@ const dateToMapDay = (day, props) => ({
 	}
 });
 
-export const getFirstDayPosition = date => dayjs(date).startOf('month').get("d");
+export const getFirstDayPosition = date =>
+	dayjs(date)
+		.startOf("month")
+		.get("d");
 
 export const getMonthDaysMap = date => {
 	const amountMonthDays = getMonthDays(date);
@@ -65,24 +69,27 @@ export const getMonthViewOrderedList = (monthView, position) => {
 };
 
 export const getMonthViewWithHolidays = holidays => monthView => {
-	const monthViewWithHolidays = holidays.reduce((acc, curr) => {
-		const day = Object.keys(dateToMapDay(dayjs(curr.date), {}))[0];
-		if (acc.hasOwnProperty(day)) {
-			(acc[day].holiday = true), (acc[day].info = curr);
-		}
-		return { ...acc };
-	}, { ...monthView });
+	const monthViewWithHolidays = holidays.reduce(
+		(acc, curr) => {
+			const day = Object.keys(dateToMapDay(dayjs(curr.date), {}))[0];
+			if (acc.hasOwnProperty(day)) {
+				(acc[day].holiday = true), (acc[day].info = curr);
+			}
+			return { ...acc };
+		},
+		{ ...monthView }
+	);
 
 	return monthViewWithHolidays;
-}
+};
 
 export const getMonthNumber = date => parseInt(dayjs(date).format("M"), 10);
 
-export const formatDay = date => dayjs(date).format("D");
+export const formatDateD = date => dayjs(date).format("D");
 
-export const formatMonthToString = date => dayjs(date).format("MMMM");
+export const formatDateMMMM = date => dayjs(date).format("MMMM");
 
-export const formatYear = date => dayjs(date).format("YYYY");
+export const formatDateYYYY = date => dayjs(date).format("YYYY");
 
 export const formatCompleteDate = date =>
 	dayjs(date, "YYYY-MM-DD").format("DD MMMM, dddd");

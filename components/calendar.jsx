@@ -2,7 +2,12 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import CalendarHeader from "./CalendarHeader";
 import DayInfo from "./DayInfo";
-import * as calendarUtils from "../utils/calendarUtils";
+import {
+	getMonthMapAndList,
+	formatYYYY,
+	formatMMMM,
+	formatD
+} from "../core/actions/CalendarActions";
 
 const CalendarWrapper = styled.div`
 	margin: auto;
@@ -65,21 +70,11 @@ export const Calendar = ({ date, holidays = [] }) => {
 	const [month, setMonth] = useState(date);
 	const [info, setInfo] = useState({});
 
-	const monthMap = calendarUtils.compose(
-		calendarUtils.getMonthDaysMap,
-		calendarUtils.getMonthViewMap,
-		calendarUtils.getMonthViewWithHolidays(holidays)
-	)(month);
-	const firstDayPosition = calendarUtils.getFirstDayPosition(month);
-	const monthDaysList = calendarUtils.getMonthViewOrderedList(
-		monthMap,
-		firstDayPosition
-	);
+	const { monthMap, monthList } = getMonthMapAndList(month, holidays);
 
 	const handleChangeMonthClick = steps => {
 		setMonth(prevMonth => prevMonth.add(steps, "month"));
-		console.log("changeMonth", month);
-	}
+	};
 
 	const displayInfo = day => {
 		if (day.holiday) setInfo(day);
@@ -89,19 +84,19 @@ export const Calendar = ({ date, holidays = [] }) => {
 	return (
 		<CalendarWrapper>
 			<CalendarHeader
-				year={calendarUtils.formatYear(month)}
-				month={calendarUtils.formatMonthToString(month)}
+				year={formatYYYY(month)}
+				month={formatMMMM(month)}
 				handleChangeMonthClick={handleChangeMonthClick}
 			/>
 			<CalendarGrid>
-				{monthDaysList.map(day => (
+				{monthList.map(day => (
 					<CalendarDay
 						key={day}
 						holiday={monthMap[day].holiday}
 						active={monthMap[day].active}
 						onClick={() => displayInfo(monthMap[day])}
 					>
-						{calendarUtils.formatDay(day)}
+						{formatD(day)}
 					</CalendarDay>
 				))}
 			</CalendarGrid>
