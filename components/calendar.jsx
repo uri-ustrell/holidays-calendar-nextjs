@@ -43,7 +43,6 @@ const CalendarDay = styled.div`
 		if (active) {
 			style += `
       font-weight: bold;
-      transition: 0.3s;
       color: #555;
       
       &:hover {
