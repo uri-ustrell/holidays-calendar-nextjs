@@ -69,15 +69,17 @@ export const Calendar = ({ date, holidays = [] }) => {
 		calendarUtils.getMonthDaysMap,
 		calendarUtils.getMonthViewMap,
 		calendarUtils.getMonthViewWithHolidays(holidays)
-	)(date);
+	)(month);
 	const firstDayPosition = calendarUtils.getFirstDayPosition(month);
 	const monthDaysList = calendarUtils.getMonthViewOrderedList(
 		monthMap,
 		firstDayPosition
 	);
 
-	const handleChangeMonthClick = steps =>
+	const handleChangeMonthClick = steps => {
 		setMonth(prevMonth => prevMonth.add(steps, "month"));
+		console.log("changeMonth", month);
+	}
 
 	const displayInfo = day => {
 		if (day.holiday) setInfo(day);
