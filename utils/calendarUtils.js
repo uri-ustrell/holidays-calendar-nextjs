@@ -1,5 +1,7 @@
 import dayjs from "dayjs";
 
+export const compose = (...functions) => args => functions.reduceRight((arg, fn) => fn(arg), args);
+
 export const getMonthDays = date =>
 	parseInt(
 		dayjs(date)
@@ -23,7 +25,7 @@ export const getFirstDayPosition = day => dayjs(day.date).get("d");
 
 export const getMonthDaysMap = date => {
 	const amountMonthDays = getMonthDays(date);
-	return Array.from({ length: amountMonthDays }).reduce(
+	const monthDaysMap = Array.from({ length: amountMonthDays }).reduce(
 		(monthDays, _, day) => {
 			return {
 				...monthDays,
@@ -32,6 +34,9 @@ export const getMonthDaysMap = date => {
 		},
 		{}
 	);
+	console.log("monthDaysMap", monthDaysMap);
+	debugger
+	return monthDaysMap;
 };
 
 export const getMonthViewMap = monthDays => {
@@ -49,7 +54,8 @@ export const getMonthViewMap = monthDays => {
 
 		return { ...oneLessDayObj, ...currentMonthView, ...oneMoreDayObj };
 	}, {});
-
+	console.log("monthView", monthView)
+	debugger
 	return monthView;
 };
 
@@ -60,15 +66,21 @@ export const getMonthViewOrderedList = (monthView, position) => {
 		.filter((_, i) => i < 42);
 };
 
-export const getMonthViewWithHolidays = (monthView, holidays) =>
-	holidays.reduce((acc, curr) => {
+export const getMonthViewWithHolidays = holidays => monthView => {
+	console.log("holidays", holidays)
+	console.log("holidays", monthView)
+	debugger
+	const monthViewWithHolidays = holidays.reduce((acc, curr) => {
 		const day = Object.keys(dateToMapDay(dayjs(curr.date), {}))[0];
 		if (acc.hasOwnProperty(day)) {
 			(acc[day].holiday = true), (acc[day].info = curr);
 		}
-
 		return { ...acc };
-	}, monthView);
+	}, { ...monthView });
+
+	console.log("monthViewWithHolidays", monthViewWithHolidays);
+	return monthViewWithHolidays;
+}
 
 export const getMonthNumber = date => parseInt(dayjs(date).format("M"), 10);
 
