@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 
-export const compose = (...functions) => args => functions.reduceRight((arg, fn) => fn(arg), args);
+export const compose = (...functions) => args => functions.reduce((arg, fn) => fn(arg), args);
 
 export const getMonthDays = date =>
 	parseInt(
@@ -21,7 +21,7 @@ const dateToMapDay = (day, props) => ({
 	}
 });
 
-export const getFirstDayPosition = day => dayjs(day.date).get("d");
+export const getFirstDayPosition = date => dayjs(date).startOf('month').get("d");
 
 export const getMonthDaysMap = date => {
 	const amountMonthDays = getMonthDays(date);
@@ -34,8 +34,7 @@ export const getMonthDaysMap = date => {
 		},
 		{}
 	);
-	console.log("monthDaysMap", monthDaysMap);
-	debugger
+
 	return monthDaysMap;
 };
 
@@ -54,8 +53,7 @@ export const getMonthViewMap = monthDays => {
 
 		return { ...oneLessDayObj, ...currentMonthView, ...oneMoreDayObj };
 	}, {});
-	console.log("monthView", monthView)
-	debugger
+
 	return monthView;
 };
 
@@ -67,9 +65,6 @@ export const getMonthViewOrderedList = (monthView, position) => {
 };
 
 export const getMonthViewWithHolidays = holidays => monthView => {
-	console.log("holidays", holidays)
-	console.log("holidays", monthView)
-	debugger
 	const monthViewWithHolidays = holidays.reduce((acc, curr) => {
 		const day = Object.keys(dateToMapDay(dayjs(curr.date), {}))[0];
 		if (acc.hasOwnProperty(day)) {
@@ -78,7 +73,6 @@ export const getMonthViewWithHolidays = holidays => monthView => {
 		return { ...acc };
 	}, { ...monthView });
 
-	console.log("monthViewWithHolidays", monthViewWithHolidays);
 	return monthViewWithHolidays;
 }
 

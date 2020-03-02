@@ -65,21 +65,12 @@ export const Calendar = ({ date, holidays = [] }) => {
 	const [month, setMonth] = useState(date);
 	const [info, setInfo] = useState({});
 
-	const composed = calendarUtils.compose(
+	const monthMap = calendarUtils.compose(
 		calendarUtils.getMonthDaysMap,
 		calendarUtils.getMonthViewMap,
 		calendarUtils.getMonthViewWithHolidays(holidays)
 	)(date);
-	console.log("composed", composed);
-	const monthDays = calendarUtils.getMonthDaysMap(month);
-	const firstDayPosition = calendarUtils.getFirstDayPosition(
-		monthDays[Object.keys(monthDays)[0]]
-	);
-	const monthMapWithoutHolidays = calendarUtils.getMonthViewMap(monthDays);
-	const monthMap = calendarUtils.getMonthViewWithHolidays(
-		monthMapWithoutHolidays,
-		holidays
-	);
+	const firstDayPosition = calendarUtils.getFirstDayPosition(month);
 	const monthDaysList = calendarUtils.getMonthViewOrderedList(
 		monthMap,
 		firstDayPosition
