@@ -6,6 +6,11 @@
 npm install
 npm run dev
 ```
+and
+
+```bash
+npm test
+```
 
 ## Description
 
